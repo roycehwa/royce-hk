@@ -33,6 +33,8 @@ const tags = [
   '随笔', '诗句', '音乐', '摄影', '灵感', '生活', '旅行', '思考', '阅读', '科技'
 ];
 
+export const revalidate = 60;
+
 export default async function Home() {
   // 读取 Notion 文章数据库
   const posts = await getDatabase(process.env.NOTION_DATABASE_ID!);
