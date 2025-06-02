@@ -6,7 +6,7 @@ import ArticleList from "@/components/ArticleList";
 
 export default async function PostPage({ params }: any) {
   console.log('详情页收到的 id:', params.id);
-  const { id } = params;
+  const id = params.id.replace(/-/g, "");
   const recordMap = await getNotionRecordMap(id);
 
   return (
