@@ -42,6 +42,8 @@ export default async function Home() {
   // 最新媒体内容一条
   const latestMedia = [...mediaList].sort((a, b) => b.date.localeCompare(a.date))[0];
 
+  console.log('首页传递的 pageId:', process.env.NOTION_DATABASE_ID);
+
   return (
     <div className="min-h-screen bg-white font-serif text-neutral-900">
       {/* 顶部导航，左侧为大标题，右侧为栏目 */}
