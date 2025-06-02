@@ -4,7 +4,7 @@ import NotionXRenderer from "@/components/NotionXRenderer";
 import NavTabs from "@/components/NavTabs";
 import ArticleList from "@/components/ArticleList";
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage({ params }: { params: Record<string, string> }) {
   console.log('详情页收到的 id:', params.id);
   const { id } = params;
   const recordMap = await getNotionRecordMap(id);
