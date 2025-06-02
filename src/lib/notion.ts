@@ -29,13 +29,14 @@ export async function getPageBlocks(pageId: string) {
 }
 
 export async function getNotionRecordMap(pageId: string) {
-  if (notionCache[pageId]) {
-    return notionCache[pageId];
+  const cleanPageId = pageId.replace(/-/g, "");
+  if (notionCache[cleanPageId]) {
+    return notionCache[cleanPageId];
   }
   const notion = new NotionAPI();
   const start = Date.now();
-  const data = await notion.getPage(pageId);
-  console.log(`getNotionRecordMap for ${pageId} took ${Date.now() - start}ms`);
-  notionCache[pageId] = data;
+  const data = await notion.getPage(cleanPageId);
+  console.log(`getNotionRecordMap for ${cleanPageId} took ${Date.now() - start}ms`);
+  notionCache[cleanPageId] = data;
   return data;
 }
