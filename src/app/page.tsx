@@ -40,7 +40,7 @@ export default async function Home() {
   const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/articles`, { cache: 'no-store' });
+  const res = await fetch('/api/articles', { cache: 'no-store' });
   const data = await res.json();
 
   const posts = data.articles || [];
