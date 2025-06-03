@@ -36,8 +36,16 @@ const tags = [
 export const revalidate = 60;
 
 export default async function Home() {
-  // 读取 Notion 文章数据库
-  const posts = await getDatabase(process.env.NOTION_DATABASE_ID!);
+  // SSR 调用本地 API 路由
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/articles`, { cache: 'no-store' });
+  const data = await res.json();
+
+  const posts = data.articles || [];
+  const total = data.total || 0;
+  const nextCursor = data.next_cursor;
 
   // 按时间倒序取最新5条 wit
   const latestWit = [...witList].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
@@ -67,7 +75,7 @@ export default async function Home() {
         {/* 左侧：最新文章 */}
         <section className="flex-1 mb-12 md:mb-0">
           <h2 className="text-2xl font-extrabold mb-8">最新文章</h2>
-          <ArticleList posts={posts} />
+          <ArticleList posts={posts} total={total} nextCursor={nextCursor} />
         </section>
         {/* 右侧：宥言 + 声色 + 标签栏 */}
         <aside className="w-full md:w-[320px] flex flex-col gap-8">
