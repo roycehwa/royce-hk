@@ -36,11 +36,13 @@ const tags = [
 export const revalidate = 60;
 
 export default async function Home() {
-  // SSR 调用本地 API 路由
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
-  const res = await fetch('/api/articles', { cache: 'no-store' });
+  // 判断环境，拼接绝对 URL
+  const baseUrl =
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000';
+
+  const res = await fetch(`${baseUrl}/api/articles`, { cache: 'no-store' });
   const data = await res.json();
 
   const posts = data.articles || [];

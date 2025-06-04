@@ -29,14 +29,35 @@ export async function getPageBlocks(pageId: string) {
 }
 
 export async function getNotionRecordMap(pageId: string) {
+  console.log('getNotionRecordMap called with:', pageId);
   const cleanPageId = pageId.replace(/-/g, "");
   if (notionCache[cleanPageId]) {
+    console.log(`getNotionRecordMap (cache hit) for ${cleanPageId}`);
     return notionCache[cleanPageId];
   }
   const notion = new NotionAPI();
   const start = Date.now();
-  const data = await notion.getPage(cleanPageId);
+
+  // 加超时
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Notion API 请求超时')), 10000)
+  );
+  let data;
+  try {
+    data = await Promise.race([
+      notion.getPage(cleanPageId),
+      timeoutPromise
+    ]);
+  } catch (e) {
+    console.error('Notion API 请求失败:', e);
+    throw e;
+  }
+
   console.log(`getNotionRecordMap for ${cleanPageId} took ${Date.now() - start}ms`);
+  if (typeof data === 'object' && data !== null) {
+    const keys = Object.keys(data as Record<string, any>);
+    console.log('recordMap keys:', keys);
+  }
   notionCache[cleanPageId] = data;
   return data;
 }

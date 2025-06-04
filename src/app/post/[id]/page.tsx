@@ -6,8 +6,23 @@ import ArticleList from "@/components/ArticleList";
 
 export default async function PostPage({ params }: any) {
   const id = (await params).id;
-  console.log('详情页收到的 id:', id);
-  const recordMap = await getNotionRecordMap(id);
+  console.log('详情页接收到的 pageId:', id);
+
+  let recordMap = null;
+  try {
+    console.log('请求 Notion API 的 pageId:', id);
+    const start = Date.now();
+    recordMap = await getNotionRecordMap(id);
+    console.log('Notion API 耗时:', Date.now() - start, 'ms');
+    console.log('recordMap:', recordMap);
+  } catch (e) {
+    console.error('getNotionRecordMap error:', e);
+    return <div>获取 Notion 页面失败: {String(e)}</div>;
+  }
+
+  if (!recordMap) {
+    return <div>未找到内容</div>;
+  }
 
   return (
     <div className="max-w-2xl mx-auto py-8">
