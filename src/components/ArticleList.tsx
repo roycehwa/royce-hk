@@ -65,26 +65,26 @@ export default function ArticleList({ posts: initialPosts = [], total: initialTo
           <li key={post.id} className="mb-8">
             <Link href={`/post/${post.id}`} className="block hover:bg-blue-50 rounded-lg p-4 transition">
               <h3 className="text-lg font-bold mb-1">
-                {post.properties?.标题?.title?.[0]?.plain_text || "无标题"}
+                {post.title || "无标题"}
               </h3>
               <div className="flex items-center justify-between text-gray-500 text-sm mb-1">
-                <span>{post.properties?.日期?.date?.start || ""}</span>
+                <span>{post.date || ""}</span>
                 <span className="text-blue-600 hover:underline text-sm ml-2">
                   阅读原文 &gt;
                 </span>
               </div>
               <div className="text-base mb-2">
-                {post.properties?.正文?.rich_text?.[0]?.plain_text || ""}
+                {post.summary || ""}
               </div>
             </Link>
             <div className="flex flex-wrap gap-2 mt-2">
-              {(post.properties?.标签?.multi_select || []).map((tag: any) => (
+              {(post.tags || []).map((tag: string, i: number) => (
                 <a
-                  key={tag.id}
-                  href={`/tag/${encodeURIComponent(tag.name)}`}
+                  key={i}
+                  href={`/tag/${encodeURIComponent(tag)}`}
                   className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs hover:bg-blue-100"
                 >
-                  {tag.name}
+                  {tag}
                 </a>
               ))}
             </div>
@@ -107,9 +107,6 @@ export default function ArticleList({ posts: initialPosts = [], total: initialTo
         >
           下一页
         </button>
-      </div>
-      <div>
-        <Link href="/post/test" className="text-red-600 underline">测试跳转</Link>
       </div>
     </div>
   );

@@ -1,60 +1,57 @@
 import React from 'react';
-import { getDatabase, getPage, getPageBlocks } from "@/lib/notion";
-import NotionRenderer from "@/components/NotionXRenderer";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 import Link from "next/link";
 import ArticleList from "@/components/ArticleList";
 
-// 假数据
-const articles = [
-  { title: '摘：《Aus meiner Kindheit und Jugendzeit》', date: '2025-05-31', summary: '“史怀哲《我的童年和青年时代》”' },
-  { title: '摘：《天生有罪》', date: '2025-05-30', summary: '“罪从何处来？”' },
-  { title: '摘：《许渊冲百岁自述》', date: '2025-05-30', summary: '“我们一生，无可辩驳。”' },
-  { title: '入蜀记 06', date: '2025-05-30', summary: '“石化。”' },
-  { title: '入蜀记 04', date: '2025-05-30', summary: '“行李来了。”' },
-];
+const articlesDir = path.join(process.cwd(), 'content', 'articles');
+const witsDir = path.join(process.cwd(), 'content', 'wits');
 
-const witList = [
-  { content: '人生如逆旅，我亦是行人。', date: '2024-06-01' },
-  { content: '一念花开，一念花落。', date: '2024-05-30' },
-  { content: '夜色温柔，心事如水。', date: '2024-05-29' },
-  { content: '浮生若梦，为欢几何。', date: '2024-05-28' },
-  { content: '山川异域，风月同天。', date: '2024-05-27' },
-];
+function getAllArticles() {
+  const files = fs.readdirSync(articlesDir).filter(f => f.endsWith('.md') || f.endsWith('.mdx'));
+  return files.map(filename => {
+    const filePath = path.join(articlesDir, filename);
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data } = matter(fileContents);
+    return {
+      id: filename.replace(/\.(md|mdx)$/, ''),
+      ...data,
+    };
+  }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+}
 
-const mediaList = [
-  { title: '夜的钢琴曲', type: 'audio', thumb: '/media/audio1.jpg', url: '#', date: '2024-06-01', src: '/media/sample.mp3' },
-  { title: '浮世绘一', type: 'image', thumb: '/media/img1.jpg', url: '#', date: '2024-05-30' },
-  { title: '赛博之夜', type: 'video', thumb: '/media/video1.jpg', url: '#', date: '2024-05-29' },
-  { title: '晨光', type: 'audio', thumb: '/media/audio2.jpg', url: '#', date: '2024-05-28' },
-  { title: '蓝色回响', type: 'image', thumb: '/media/img2.jpg', url: '#', date: '2024-05-27' },
-];
-
-const tags = [
-  '随笔', '诗句', '音乐', '摄影', '灵感', '生活', '旅行', '思考', '阅读', '科技'
-];
+function getAllWits() {
+  const files = fs.readdirSync(witsDir).filter(f => f.endsWith('.md') || f.endsWith('.mdx'));
+  return files.map(filename => {
+    const filePath = path.join(witsDir, filename);
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data, content } = matter(fileContents);
+    return {
+      ...data,
+      content: content.trim(),
+    };
+  }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+}
 
 export const revalidate = 60;
 
 export default async function Home() {
-  // 判断环境，拼接绝对 URL
-  const baseUrl =
-    process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
+  const posts = getAllArticles();
+  const witList = getAllWits().slice(0, 5); // 取最新5条
 
-  const res = await fetch(`${baseUrl}/api/articles`, { cache: 'no-store' });
-  const data = await res.json();
-
-  const posts = data.articles || [];
-  const total = data.total || 0;
-  const nextCursor = data.next_cursor;
-
-  // 按时间倒序取最新5条 wit
-  const latestWit = [...witList].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
-  // 最新媒体内容一条
+  // 你原有的 mediaList 和 tags 保留
+  const mediaList = [
+    { title: '夜的钢琴曲', type: 'audio', thumb: '/media/audio1.jpg', url: '#', date: '2024-06-01', src: '/media/sample.mp3' },
+    { title: '浮世绘一', type: 'image', thumb: '/media/img1.jpg', url: '#', date: '2024-05-30' },
+    { title: '赛博之夜', type: 'video', thumb: '/media/video1.jpg', url: '#', date: '2024-05-29' },
+    { title: '晨光', type: 'audio', thumb: '/media/audio2.jpg', url: '#', date: '2024-05-28' },
+    { title: '蓝色回响', type: 'image', thumb: '/media/img2.jpg', url: '#', date: '2024-05-27' },
+  ];
   const latestMedia = [...mediaList].sort((a, b) => b.date.localeCompare(a.date))[0];
-
-  console.log('首页传递的 pageId:', process.env.NOTION_DATABASE_ID);
+  const tags = [
+    '随笔', '诗句', '音乐', '摄影', '灵感', '生活', '旅行', '思考', '阅读', '科技'
+  ];
 
   return (
     <div className="min-h-screen bg-white font-serif text-neutral-900">
@@ -77,7 +74,7 @@ export default async function Home() {
         {/* 左侧：最新文章 */}
         <section className="flex-1 mb-12 md:mb-0">
           <h2 className="text-2xl font-extrabold mb-8">最新文章</h2>
-          <ArticleList posts={posts} total={total} nextCursor={nextCursor} />
+          <ArticleList posts={posts} total={posts.length} />
         </section>
         {/* 右侧：宥言 + 声色 + 标签栏 */}
         <aside className="w-full md:w-[320px] flex flex-col gap-8">
@@ -85,7 +82,7 @@ export default async function Home() {
           <section className="bg-neutral-50 rounded-xl shadow p-6 border-l-4 border-blue-200">
             <h2 className="text-lg font-bold text-blue-700 mb-4">宥言</h2>
             <ul className="space-y-3 text-base text-blue-900">
-              {latestWit.map((w, i) => (
+              {witList.map((w, i) => (
                 <li key={i} className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-blue-300 rounded-full inline-block"></span>
                   <span>{w.content}</span>
