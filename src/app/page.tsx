@@ -14,9 +14,21 @@ function getAllArticles() {
     const filePath = path.join(articlesDir, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
+    // 兼容 tags 字段为字符串、单个标签或数组
+    let tags = data.tags;
+    if (typeof tags === 'string') {
+      tags = [tags];
+    } else if (Array.isArray(tags)) {
+      tags = tags;
+    } else if (tags) {
+      tags = [String(tags)];
+    } else {
+      tags = [];
+    }
     return {
       id: filename.replace(/\.(md|mdx)$/, ''),
       ...data,
+      tags,
     } as { id: string; date?: string; title?: string; tags?: string[]; summary?: string };
   }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 }
