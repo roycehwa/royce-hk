@@ -75,7 +75,7 @@ export default async function PostPage({ params }: any) {
         <h1 className="text-3xl font-bold mb-2">{data.title || id}</h1>
         <div className="flex items-center text-gray-500 text-sm mb-4">
           <span>{data.date}</span>
-          {data.tags && Array.isArray(data.tags) && (
+          {data.tags && Array.isArray(data.tags) && data.tags.length > 0 && (
             <span className="ml-4 flex flex-wrap gap-2">
               {data.tags.map((tag: string, i: number) => (
                 <span key={i} className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">{tag}</span>
@@ -84,13 +84,14 @@ export default async function PostPage({ params }: any) {
           )}
         </div>
         {data.summary && <div className="mb-4 text-lg text-gray-700">{data.summary}</div>}
-        {!isMdx ? (
-          <article className="prose prose-blue max-w-none" dangerouslySetInnerHTML={{ __html: html }} />
-        ) : (
-          <div className="prose prose-blue max-w-none">
+        <article className="prose prose-blue max-w-none">
+          {/* 统一用 dangerouslySetInnerHTML 渲染 Markdown HTML，无论 md 还是 mdx */}
+          {!isMdx ? (
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+          ) : (
             <MDXRemote source={content} />
-          </div>
-        )}
+          )}
+        </article>
         <div className="mt-10">
           <Link href="/" className="text-blue-600 hover:underline inline-block">← 返回首页</Link>
         </div>
