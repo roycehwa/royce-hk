@@ -3,10 +3,13 @@ title: "当我们荡起双桨，发骚去"
 date: "2025-5-20"
 tags: [AI,Music,自娱自乐]
 summary: "这首歌描绘了一艘小船在水面上漂浮的悠闲场景，结合了中文和英文的歌词，表达了漂流的乐趣和与自然的和谐，强调了生活的瞬息与梦境的交织。"
+
 ---
 
 
-https://royce-1304379861.cos.ap-shanghai.myqcloud.com/荡起双桨Drifting.MP3
+
+
+![](https://royce-1304379861.cos.ap-shanghai.myqcloud.com/%E8%8D%A1%E8%B5%B7%E5%8F%8C%E6%A1%A8Drifting.MP3)
 
 [Reprise - intro]
 
@@ -32,7 +35,11 @@ https://royce-1304379861.cos.ap-shanghai.myqcloud.com/荡起双桨Drifting.MP3
 
 driftin’, just driftin’…
 
+&nbsp;
+
 ⸻
+
+&nbsp;
 
 [Verse 1 – CN + EN Intercut / Synchopated Flow]
 
@@ -52,7 +59,11 @@ Grew up where trees whisper bedtime songs
 
 and the skyline hums like a slow jazz hymn
 
+&nbsp;
+
 ⸻
+
+&nbsp;
 
 [Hook – Neo-Soul Chorus + French Whisper Layer]
 
@@ -70,7 +81,11 @@ Et le vent fredonne nos refrains
 
 Driftin’, driftin’, pas d’ancre, pas de port
 
+&nbsp;
+
 ⸻
+
+&nbsp;
 
 [Verse 2 – More Cut-up Flow + Lo-fi Jazz Drum]
 
@@ -108,7 +123,11 @@ des battements perdus dans le temps…
 
 Driftin’, driftin’…
 
+&nbsp;
+
 ⸻
+
+&nbsp;
 
 [Final Hook – All voices merge / Layered Chorus]
 
