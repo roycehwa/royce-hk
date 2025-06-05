@@ -17,7 +17,7 @@ function getAllArticles() {
     return {
       id: filename.replace(/\.(md|mdx)$/, ''),
       ...data,
-    };
+    } as { id: string; date?: string; title?: string; tags?: string[]; summary?: string };
   }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 }
 
