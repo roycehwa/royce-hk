@@ -30,7 +30,7 @@ function getAllWits() {
     return {
       ...data,
       content: content.trim(),
-    };
+    } as { date?: string; content: string; [key: string]: any };
   }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 }
 
