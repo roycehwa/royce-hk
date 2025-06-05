@@ -16,6 +16,7 @@ import MdxRenderer from '@/components/MdxRenderer';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { serialize } from 'next-mdx-remote/serialize';
 import remarkBreaks from 'remark-breaks';
+import rehypeRaw from 'rehype-raw';
 
 export default async function PostPage({ params }: any) {
   const { id } = params;
@@ -42,8 +43,9 @@ export default async function PostPage({ params }: any) {
       await unified()
         .use(remarkParse)
         .use(remarkBreaks)
-        .use(remarkRehype)
-        .use(rehypeStringify)
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeStringify, { allowDangerousHtml: true })
         .process(file)
     );
   } else {
