@@ -11,6 +11,8 @@ summary: "这首歌描绘了一艘小船在水面上漂浮的悠闲场景，结�
   您的浏览器不支持 audio 元素。
 </audio>
 
+&nbsp;
+
 [Reprise - intro]
 
 让我们荡起双桨
