@@ -6,10 +6,10 @@ summary: "这首歌描绘了一艘小船在水面上漂浮的悠闲场景，结�
 
 ---
 
-
-
-
-![](https://royce-1304379861.cos.ap-shanghai.myqcloud.com/%E8%8D%A1%E8%B5%B7%E5%8F%8C%E6%A1%A8Drifting.MP3)
+<audio controls>
+  <source src="https://royce-1304379861.cos.ap-shanghai.myqcloud.com/%E8%8D%A1%E8%B5%B7%E5%8F%8C%E6%A1%A8Drifting.MP3" type="audio/mpeg" />
+  您的浏览器不支持 audio 元素。
+</audio>
 
 [Reprise - intro]
 
@@ -33,7 +33,7 @@ summary: "这首歌描绘了一艘小船在水面上漂浮的悠闲场景，结�
 
 而是为了漂浮
 
-driftin’, just driftin’…
+driftin' just driftin'...
 
 &nbsp;
 
@@ -69,7 +69,7 @@ and the skyline hums like a slow jazz hymn
 
 我们是水面上的一首歌
 
-We’re just a groove on the surface
+We're just a groove on the surface
 
 Pas de début, pas de fin
 
@@ -79,7 +79,7 @@ Et le vent fredonne nos refrains
 
 心跳是节拍，小船儿是梦境
 
-Driftin’, driftin’, pas d’ancre, pas de port
+Driftin', driftin', pas d'ancre, pas de port
 
 &nbsp;
 
@@ -91,7 +91,7 @@ Driftin’, driftin’, pas d’ancre, pas de port
 
 做完了一天功课
 
-Now the city’s glowing, neon like a blur
+Now the city's glowing, neon like a blur
 
 放学路上你哼着某段旋律
 
@@ -103,17 +103,17 @@ Vinyl crackle, trumpet bends,
 
 你问谁安排了这幸福的梦？
 
-Maybe we did, maybe it’s pretend
+Maybe we did, maybe it's pretend
 
 我们是水面上的一首歌
 
-We don’t arrive, we become
+We don't arrive, we become
 
-风不是风，是心跳流动的暗语……
+风不是风，是心跳流动的暗语......
 
-des battements perdus dans le temps…
+des battements perdus dans le temps...
 
-风不是风，是心跳流动的暗语……
+风不是风，是心跳流动的暗语......
 
 你闭上眼就会看见我们在水中舞蹈
 
@@ -121,7 +121,7 @@ des battements perdus dans le temps…
 
 白日梦，慢慢烧
 
-Driftin’, driftin’…
+Driftin', driftin'...
 
 &nbsp;
 
@@ -133,7 +133,7 @@ Driftin’, driftin’…
 
 我们是水面上的一首歌
 
-We don’t arrive, we become
+We don't arrive, we become
 
 Pas de fin, juste des vagues
 
