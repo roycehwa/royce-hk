@@ -17,7 +17,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { serialize } from 'next-mdx-remote/serialize';
 import remarkBreaks from 'remark-breaks';
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage({ params }: any) {
   const { id } = params;
   const filePathMd = path.join(process.cwd(), 'content', 'articles', `${id}.md`);
   const filePathMdx = path.join(process.cwd(), 'content', 'articles', `${id}.mdx`);
